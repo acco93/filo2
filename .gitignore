@@ -38,6 +38,4 @@ build
 cmake-build-debug
 cmake-build-release
 venv
-results
-imgs
 __pycache__
