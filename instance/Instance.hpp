@@ -10,6 +10,11 @@
 #include "Parser.hpp"
 
 namespace cobra {
+    namespace {
+        inline double fastround(double value) {
+            return static_cast<int>(value + 0.5);
+        }
+    }  // namespace
 
     // Manages a CVRP instance by providing a set of methods to query its properties.
     class Instance : private NonCopyable<Instance> {
@@ -64,8 +69,11 @@ namespace cobra {
             assert(i >= get_vertices_begin() && i < get_vertices_end());
             assert(j >= get_vertices_begin() && j < get_vertices_end());
 
-            return std::round(
-                std::sqrt((xcoords[i] - xcoords[j]) * (xcoords[i] - xcoords[j]) + (ycoords[i] - ycoords[j]) * (ycoords[i] - ycoords[j])));
+            const double sqrt = std::sqrt((xcoords[i] - xcoords[j]) * (xcoords[i] - xcoords[j]) +
+                                          (ycoords[i] - ycoords[j]) * (ycoords[i] - ycoords[j]));
+            assert(static_cast<int>(std::round(sqrt)) == static_cast<int>(fastround(sqrt)));
+
+            return fastround(sqrt);
         }
 
         // Returns the demand of vertex `i`. The demand is 0 for the depot.
