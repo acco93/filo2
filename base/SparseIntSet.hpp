@@ -35,7 +35,7 @@ namespace cobra {
             elements.push_back(value);
         }
 
-        inline bool contains(int value) {
+        inline bool contains(int value) const {
             return flags[value];
         }
 
