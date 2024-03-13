@@ -244,7 +244,7 @@ namespace cobra {
         }
 
         inline void execute(Solution &solution, __attribute__((unused)) const MoveGenerator &generating_move,
-                            VertexSet &affected_vertices) override {
+                            SparseIntSet &affected_vertices) override {
 
             for (auto i : forbidden_i.get_set_entries_possibly_with_duplicates(feasible_rni)) {
                 affected_vertices.insert(i);
@@ -254,7 +254,7 @@ namespace cobra {
             }
 
             // Reset some cached deltas associated with affected vertices.
-            for (const int i : affected_vertices.get_vertices()) {
+            for (const int i : affected_vertices.get_elements()) {
                 for (const int move_index : moves.get_move_generator_indices_involving(i)) {
                     moves.get(move_index).set_computed_for_ejch(false);
                     moves.get(move_index + 1).set_computed_for_ejch(false);

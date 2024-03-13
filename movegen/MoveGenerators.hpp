@@ -8,8 +8,8 @@
 
 #include "../base/BinaryHeap.hpp"
 #include "../base/Flat2DVector.hpp"
+#include "../base/SparseIntSet.hpp"
 #include "../base/VectorView.hpp"
-#include "../base/VertexSet.hpp"
 #include "../instance/Instance.hpp"
 
 namespace cobra {
@@ -180,7 +180,7 @@ namespace cobra {
         // Changes the active move generators associated with `i = vertices[n], n=0, ..., len(vertices)` to be `percentage[i]`. Vertices in
         // `vertices_in_updated_moves` have been affected by this change.
         virtual void set_active_percentage(std::vector<double>& percentage, std::vector<int>& vertices, MoveGenerators& moves,
-                                           VertexSet& vertices_in_updated_moves) = 0;
+                                           SparseIntSet& vertices_in_updated_moves) = 0;
 
         // Returns the number of move generators associated with this view.
         virtual int size() = 0;
@@ -382,7 +382,7 @@ namespace cobra {
 
             // For each view, set or unset move generators involving each 'vertex' according to percentage[vertex].
             // Collect all vertices involving moves that are set or unset.
-            auto vertices_in_updated_moves = VertexSet(instance.get_vertices_num());
+            auto vertices_in_updated_moves = SparseIntSet(instance.get_vertices_num());
             for (auto& view : views) {
                 view->set_active_percentage(percentage, vertices, *this, vertices_in_updated_moves);
             }
@@ -402,8 +402,8 @@ namespace cobra {
             // Note that this latter approach causes views to always stay in possibly inconsistent states and thus they should never be
             // accessed directly.
             auto unique_move_generators = std::vector<int>();
-            auto unique_endpoints = VertexSet(instance.get_vertices_num());
-            for (const auto vertex : vertices_in_updated_moves.get_vertices()) {
+            auto unique_endpoints = SparseIntSet(instance.get_vertices_num());
+            for (const auto vertex : vertices_in_updated_moves.get_elements()) {
                 unique_move_generators.clear();
                 unique_endpoints.clear();
                 for (auto& view : views) {
@@ -596,7 +596,7 @@ namespace cobra {
             build_local_indices_and_setup_active_trackers();
         }
         void set_active_percentage(std::vector<double>& percentage, std::vector<int>& vertices, MoveGenerators& moves,
-                                   VertexSet& vertices_in_updated_moves) override {
+                                   SparseIntSet& vertices_in_updated_moves) override {
 
             auto vertices_to_update = std::vector<int>();
 

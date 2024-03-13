@@ -47,9 +47,9 @@ add_executable(filo2
     base/PrettyPrinter.hpp
     base/SmallFlatMap.hpp
     base/SmallFlatSet.hpp
+    base/SparseIntSet.hpp
     base/Timer.hpp
     base/VectorView.hpp
-    base/VertexSet.hpp
     base/Welford.hpp
 
     instance/Instance.cpp

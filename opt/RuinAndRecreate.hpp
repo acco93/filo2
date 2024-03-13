@@ -3,6 +3,7 @@
 
 #include <random>
 
+#include "../base/SparseIntSet.hpp"
 #include "../base/Welford.hpp"
 #include "../instance/Instance.hpp"
 #include "../solution/Solution.hpp"
@@ -15,14 +16,15 @@ public:
           rand_engine(rand_engine_),
           boolean_dist(std::uniform_int_distribution(0, 1)),
           customers_distribution(instance.get_customers_begin(), instance.get_customers_end() - 1),
-          rand_uniform(0, 3) { }
+          rand_uniform(0, 3),
+          routes(instance.get_customers_num()) { }
 
     int apply(cobra::Solution& solution, std::vector<int>& omega) {
 
         assert(solution.is_feasible());
 
-        auto removed = std::vector<int>();
-        auto routes = std::unordered_set<int>();
+        removed.clear();
+        routes.clear();
 
         auto seed = customers_distribution(rand_engine);
 
@@ -65,7 +67,7 @@ public:
                     for (auto m = 1u; m < instance.get_neighbors_of(curr).size(); m++) {
                         const auto neighbor = instance.get_neighbors_of(curr)[m];
                         if (neighbor == instance.get_depot() || !solution.is_customer_in_solution(neighbor) ||
-                            routes.count(solution.get_route_index(neighbor))) {
+                            routes.contains(solution.get_route_index(neighbor))) {
                             continue;
                         }
                         next = neighbor;
@@ -134,19 +136,19 @@ public:
             auto best_cost = std::numeric_limits<double>::max();
 
             const auto& neighbors = instance.get_neighbors_of(customer);
-            std::unordered_set<int> neighbor_routes;
+            routes.clear();
 
             // We only try to insert customers back into routes serving neighboring customers. That's not necessarily the smartest choice,
             // especially for very long routes, but seems to be working well enough.
             for (int n = 1; n < static_cast<int>(neighbors.size()); n++) {
                 int where = neighbors[n];
                 if (where == instance.get_depot() || !solution.is_customer_in_solution(where)) continue;
-                neighbor_routes.insert(solution.get_route_index(where));
+                routes.insert(solution.get_route_index(where));
             }
 
             const auto c_customer_depot = instance.get_cost(customer, instance.get_depot());
 
-            for (auto route : neighbor_routes) {
+            for (auto route : routes.get_elements()) {
 
                 if (solution.get_route_load(route) + instance.get_demand(customer) > instance.get_vehicle_capacity()) {
                     continue;
@@ -197,6 +199,8 @@ private:
     std::uniform_int_distribution<int> boolean_dist;
     std::uniform_int_distribution<int> customers_distribution;
     std::uniform_int_distribution<int> rand_uniform;
+    std::vector<int> removed;
+    cobra::SparseIntSet routes;
 };
 
 #endif

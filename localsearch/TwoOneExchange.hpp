@@ -59,7 +59,7 @@ namespace cobra {
                    (iRoute == jRoute && i != jPrev && solution.get_next_vertex(iRoute, i) != jPrev && iPrev != j);
         }
 
-        inline void execute(Solution &solution, const MoveGenerator &move, VertexSet &storage) override {
+        inline void execute(Solution &solution, const MoveGenerator &move, SparseIntSet &storage) override {
 
             const auto i = move.get_first_vertex();
             const auto j = move.get_second_vertex();

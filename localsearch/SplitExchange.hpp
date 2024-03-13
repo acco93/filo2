@@ -43,7 +43,7 @@ namespace cobra {
                                             this->instance.get_vehicle_capacity());
         }
 
-        inline void execute(Solution &solution, const MoveGenerator &move, VertexSet &storage) override {
+        inline void execute(Solution &solution, const MoveGenerator &move, SparseIntSet &storage) override {
 
             const auto i = move.get_first_vertex();
             const auto j = move.get_second_vertex();

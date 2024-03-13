@@ -5,7 +5,7 @@
 #include <map>
 #include <set>
 
-#include "../base/VertexSet.hpp"
+#include "../base/SparseIntSet.hpp"
 #include "../instance/Instance.hpp"
 #include "../movegen/MoveGenerators.hpp"
 #include "../solution/Solution.hpp"

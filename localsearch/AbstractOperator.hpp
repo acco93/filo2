@@ -40,7 +40,7 @@ namespace cobra {
 
         // Applies `move` to `solution` and populates `affected_vertices` with the vertices `i` for which at least one move generator `(i,
         // j)` or `(j, i)` require an update.
-        virtual void execute(Solution& solution, const MoveGenerator& move, VertexSet& affected_vertices) = 0;
+        virtual void execute(Solution& solution, const MoveGenerator& move, SparseIntSet& affected_vertices) = 0;
 
         // Performs some final cleanup at the end of the local search cycle, if necessary.
         virtual void post_processing(Solution& solution) = 0;
@@ -415,7 +415,7 @@ namespace cobra {
             };
 
             auto depot = false;
-            for (auto i : affected_vertices.get_vertices()) {
+            for (auto i : affected_vertices.get_elements()) {
 
                 if constexpr (handle_partial_solutions) {
                     if (!solution.is_vertex_in_solution(i)) {
@@ -524,7 +524,7 @@ namespace cobra {
             };
 
             auto depot = false;
-            for (auto i : affected_vertices.get_vertices()) {
+            for (auto i : affected_vertices.get_elements()) {
 
                 if constexpr (handle_partial_solutions) {
                     if (!solution.is_vertex_in_solution(i)) {
@@ -776,7 +776,7 @@ namespace cobra {
             }
 
             // Reset the update bits associated with affected vertices.
-            for (auto i : affected_vertices.get_vertices()) {
+            for (auto i : affected_vertices.get_elements()) {
                 T::update_bits.at(i, UPDATE_BITS_FIRST, false);
                 T::update_bits.at(i, UPDATE_BITS_SECOND, false);
             }
@@ -789,7 +789,7 @@ namespace cobra {
 
         // Set of vertices affected by a move application. This set together with `update_bits` define the move generators requiring an
         // update.
-        VertexSet affected_vertices;
+        SparseIntSet affected_vertices;
     };
 
 
