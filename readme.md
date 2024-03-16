@@ -6,6 +6,9 @@ On the [X](instances/X/) and [B](instances/B/) datasets FILO2 behaves pretty muc
 
 Changes and computational results are described in [this draft](https://arxiv.org/abs/2306.14205). This repository contains [raw results](results/) and the algorithm source code.
 
+### Updates
+The code has received two minor updates related to implementation details (see [1](https://github.com/acco93/filo2/commit/42276b76ded03a2cabd82206bf56b44fde299605) and [2](https://github.com/acco93/filo2/commit/2127972f5d1e4a6d7abd8a41501908ef11a51b8a)) that slighly improve the overall computing time of the algorithm compared to the results published in the paper.
+
 ### Get the code
 ```
 git clone git@github.com:acco93/filo2.git
