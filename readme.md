@@ -4,7 +4,7 @@ FILO2 is an evolution of [FILO](https://github.com/acco93/filo) able to tackle m
 Less than ten minutes and 10GB of RAM are enough to execute 100k FILO2 iterations and get a (possibly very bad) solution for an instance with 1 million customers. 
 On the [X](instances/X/) and [B](instances/B/) datasets FILO2 behaves pretty much like FILO in terms of quality (sometimes it is even slightly better) but it has a considerably lower time growth rate that becomes very visible for instances with more than 5k customers.
 
-Changes and computational results are described in [this draft](https://arxiv.org/abs/2306.14205). This repository contains [raw results](results/) and the algorithm source code.
+Changes and computational results are described in the [draft](https://arxiv.org/abs/2306.14205) and in the [paper](https://www.sciencedirect.com/science/article/pii/S0305054824000340). This repository contains [raw results](results/) and the algorithm source code.
 
 ### Updates
 The code has received two minor updates related to implementation details (see [1](https://github.com/acco93/filo2/commit/42276b76ded03a2cabd82206bf56b44fde299605) and [2](https://github.com/acco93/filo2/commit/2127972f5d1e4a6d7abd8a41501908ef11a51b8a)) that slighly improve the overall computing time of the algorithm compared to the results published in the paper.
