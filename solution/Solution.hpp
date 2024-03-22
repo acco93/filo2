@@ -36,30 +36,24 @@ namespace cobra {
         explicit Solution(const Instance &instance_) : Solution(instance_, instance_.get_vertices_num()) { }
 
         Solution(const Instance &instance_, int history_len)
-            : instance(instance_),
-              solution_cost(INFINITY),
-              max_number_routes(instance_.get_vertices_num() + 1),
-              routes_pool(max_number_routes - 1,
-                          [](int index) {
-                              return index + 1;
-                          }),
-              depot_node({Solution::dummy_route, 0}),
-              routes_list(max_number_routes),
-              customers_list(instance_.get_vertices_num()),
-              cache(history_len, instance_.get_vertices_num()) { }
+            : instance(instance_)
+            , solution_cost(INFINITY)
+            , max_number_routes(instance_.get_vertices_num() + 1)
+            , routes_pool(max_number_routes - 1, [](int index) { return index + 1; })
+            , depot_node({Solution::dummy_route, 0})
+            , routes_list(max_number_routes)
+            , customers_list(instance_.get_vertices_num())
+            , cache(history_len, instance_.get_vertices_num()) { }
 
         Solution(const Solution &source)
-            : instance(source.instance),
-              solution_cost(INFINITY),
-              max_number_routes(instance.get_vertices_num() + 1),
-              routes_pool(max_number_routes - 1,
-                          [](int index) {
-                              return index + 1;
-                          }),
-              depot_node({Solution::dummy_route, 0}),
-              routes_list(max_number_routes),
-              customers_list(instance.get_vertices_num()),
-              cache(source.cache) {
+            : instance(source.instance)
+            , solution_cost(INFINITY)
+            , max_number_routes(instance.get_vertices_num() + 1)
+            , routes_pool(max_number_routes - 1, [](int index) { return index + 1; })
+            , depot_node({Solution::dummy_route, 0})
+            , routes_list(max_number_routes)
+            , customers_list(instance.get_vertices_num())
+            , cache(source.cache) {
             copy(source);
         }
 

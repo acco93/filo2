@@ -165,7 +165,7 @@ namespace cobra {
             return c;
         }
 
-        inline std::pair<double, double> compute_cost_pair(const MoveGenerator& move, const struct Cache12 i, const struct Cache12 j) {
+        inline std::pair<double, double> compute_cost_pair(const MoveGenerator &move, const struct Cache12 i, const struct Cache12 j) {
 
             const auto c_iv_jv = this->moves.get_edge_cost(move);
             const auto c_inext_jnext = this->instance.get_cost(i.next, j.next);
@@ -250,7 +250,7 @@ namespace cobra {
         }
 
         template <typename C1, typename C2>
-        inline double compute_cost(const MoveGenerator& move, const C1 i, const C2 j) {
+        inline double compute_cost(const MoveGenerator &move, const C1 i, const C2 j) {
 
             const auto iSequenceAdd = +this->instance.get_cost(j.nextnext, i.prev) + this->moves.get_edge_cost(move);
             const auto jNextAdd = +this->instance.get_cost(i.prevprev, j.next) + this->instance.get_cost(j.next, i.next);

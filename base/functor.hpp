@@ -38,7 +38,6 @@ namespace cobra {
     template <typename T, auto field>
     struct access_field_functor : base_access_field_functor<T, typename std::decay<decltype(std::declval<T>().*field)>::type, field> { };
 
-
 }  // namespace cobra
 
 #endif

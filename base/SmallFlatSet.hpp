@@ -77,7 +77,6 @@ namespace cobra {
             return buffer[index];
         }
 
-
         inline bool insert(const Value v) {
             auto& candidate_place = find(v);
             if (candidate_place != emptyValue) return false;  // Element already there.

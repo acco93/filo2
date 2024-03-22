@@ -8,7 +8,7 @@ namespace cobra {
     class OneZeroExchange : public AbstractOperator {
 
     public:
-        OneZeroExchange(const Instance& instance_, MoveGenerators &moves_, double tolerance_)
+        OneZeroExchange(const Instance &instance_, MoveGenerators &moves_, double tolerance_)
             : AbstractOperator(instance_, moves_, tolerance_) { }
 
         static constexpr bool is_symmetric = false;
@@ -125,7 +125,7 @@ namespace cobra {
             return c;
         }
 
-        inline std::pair<double, double> compute_cost_pair(const MoveGenerator& move, const struct Cache12 i, const struct Cache12 j) {
+        inline std::pair<double, double> compute_cost_pair(const MoveGenerator &move, const struct Cache12 i, const struct Cache12 j) {
 
             const auto c_iv_jv = this->moves.get_edge_cost(move);
 
@@ -187,7 +187,7 @@ namespace cobra {
         }
 
         template <typename C1, typename C2>
-        inline double compute_cost(const MoveGenerator& move, const C1 i, const C2 j) {
+        inline double compute_cost(const MoveGenerator &move, const C1 i, const C2 j) {
             return i.vrem + j.prevrem + this->instance.get_cost(j.prev, i.v) + this->moves.get_edge_cost(move);
         }
     };

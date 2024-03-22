@@ -63,9 +63,9 @@ namespace cobra {
 
     public:
         CommonOperator(const Instance& instance_, MoveGenerators& moves_, double tolerance_)
-            : T(instance_, moves_, tolerance_),
-              timegen(moves_.get_timestamp_generator()),
-              affected_vertices(instance_.get_vertices_num()) { }
+            : T(instance_, moves_, tolerance_)
+            , timegen(moves_.get_timestamp_generator())
+            , affected_vertices(instance_.get_vertices_num()) { }
 
         // Applies a local search cycle to `solution` and returns whether there were some improvements.
         bool apply_rough_best_improvement(Solution& solution) {

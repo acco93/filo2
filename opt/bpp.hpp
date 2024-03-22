@@ -10,7 +10,7 @@
 namespace bpp {
 
     // Simple greedy solution of the bin packing problem associated with the CVRP instance.
-    int greedy_first_fit_decreasing(const cobra::Instance& instance) {
+    inline int greedy_first_fit_decreasing(const cobra::Instance& instance) {
 
         auto customers = std::vector<int>();
         customers.reserve(instance.get_customers_num());
@@ -19,9 +19,8 @@ namespace bpp {
             customers.emplace_back(i);
         }
 
-        std::sort(customers.begin(), customers.end(), [&instance](auto i, auto j) {
-            return instance.get_demand(i) > instance.get_demand(j);
-        });
+        std::sort(customers.begin(), customers.end(),
+                  [&instance](auto i, auto j) { return instance.get_demand(i) > instance.get_demand(j); });
 
         struct bin {
             int load{};

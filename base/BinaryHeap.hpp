@@ -212,7 +212,6 @@ namespace cobra {
         std::vector<T> heap;
     };
 
-
     template <typename N, auto field>
     struct CmpFieldPtr {
         auto operator()(N* r1, N* r2) {

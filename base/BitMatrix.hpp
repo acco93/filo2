@@ -39,5 +39,4 @@ namespace cobra {
 
 }  // namespace cobra
 
-
 #endif

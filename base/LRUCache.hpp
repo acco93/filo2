@@ -14,10 +14,10 @@ namespace cobra {
     public:
         LRUCache(int capacity_, int vertices_num_) : cache_size(capacity_), cache(vertices_num_), counter(0) { }
 
-        LRUCache(const LRUCache &other)
+        LRUCache(const LRUCache& other)
             : cache_size(other.cache_size), cache(other.cache), counter(other.counter), head(other.head), tail(other.tail) { }
 
-        LRUCache &operator=(const LRUCache &other) {
+        LRUCache& operator=(const LRUCache& other) {
             cache_size = other.cache_size;
             cache = other.cache;
             counter = other.counter;

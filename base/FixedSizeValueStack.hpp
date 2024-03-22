@@ -20,7 +20,7 @@ namespace cobra {
 
         ~FixedSizeValueStack() = default;
 
-        FixedSizeValueStack<T> &operator=(const FixedSizeValueStack<T> &other) {
+        FixedSizeValueStack<T>& operator=(const FixedSizeValueStack<T>& other) {
             assert(capacity == other.capacity);
 
             for (int i = 0; i < capacity; i++) {

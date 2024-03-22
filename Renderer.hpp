@@ -40,9 +40,7 @@ public:
             abort();
         }
 
-        glfwSetWindowCloseCallback(window, [](GLFWwindow*) -> void {
-            exit(1);
-        });
+        glfwSetWindowCloseCallback(window, [](GLFWwindow*) -> void { exit(1); });
 
         glfwSetFramebufferSizeCallback(window, [](GLFWwindow* wind, int width, int height) {
             glfwMakeContextCurrent(wind);
@@ -77,7 +75,8 @@ public:
         add_trajectory_point(initial_cost, initial_cost, initial_cost, initial_cost);
     }
 
-    void add_trajectory_point(double shaken_solution_cost, double local_optimum_cost, double current_solution_cost, double best_solution_cost) {
+    void add_trajectory_point(double shaken_solution_cost, double local_optimum_cost, double current_solution_cost,
+                              double best_solution_cost) {
 
         auto trajectory_point = TrajectoryPoint();
 

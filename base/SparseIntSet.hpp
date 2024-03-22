@@ -14,11 +14,11 @@ namespace cobra {
             flags.resize(entries_num);
         }
 
-        SparseIntSet(const SparseIntSet &other) {
+        SparseIntSet(const SparseIntSet& other) {
             flags = other.flags;
         }
 
-        SparseIntSet &operator=(const SparseIntSet &other) {
+        SparseIntSet& operator=(const SparseIntSet& other) {
             flags = other.flags;
             return *this;
         }
@@ -46,7 +46,7 @@ namespace cobra {
             elements.clear();
         }
 
-        const std::vector<int> &get_elements() const {
+        const std::vector<int>& get_elements() const {
             return elements;
         }
 

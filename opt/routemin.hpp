@@ -13,8 +13,8 @@
 #include "../solution/Solution.hpp"
 
 // Route minimization procedure.
-cobra::Solution routemin(const cobra::Instance &instance, const cobra::Solution &source, std::mt19937 &rand_engine,
-                         cobra::MoveGenerators &move_generators, int kmin, int max_iter, double tolerance) {
+inline cobra::Solution routemin(const cobra::Instance &instance, const cobra::Solution &source, std::mt19937 &rand_engine,
+                                cobra::MoveGenerators &move_generators, int kmin, int max_iter, double tolerance) {
 
 #ifdef VERBOSE
     auto partial_time_begin = std::chrono::high_resolution_clock::now();
@@ -141,9 +141,8 @@ cobra::Solution routemin(const cobra::Instance &instance, const cobra::Solution 
 
         // Pick an order for the removed customers.
         if (rand_engine() % 2 == 0) {
-            std::sort(removed.begin(), removed.end(), [&instance](auto i, auto j) {
-                return instance.get_demand(i) > instance.get_demand(j);
-            });
+            std::sort(removed.begin(), removed.end(),
+                      [&instance](auto i, auto j) { return instance.get_demand(i) > instance.get_demand(j); });
         } else {
             std::shuffle(removed.begin(), removed.end(), rand_engine);
         }

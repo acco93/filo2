@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-
 namespace cobra {
 
     class PrettyPrinter {
@@ -40,7 +39,6 @@ namespace cobra {
         };
 
         explicit PrettyPrinter(std::vector<Field> args_) : args(std::move(args_)) { }
-
 
         template <typename T, typename... Values>
         void print(T t, Values... values) {  // recursive variadic function
@@ -134,7 +132,6 @@ namespace cobra {
             this->style = NONE;
         }
 
-
     private:
         template <typename T>
         void just_print(T value, Field& header) {
@@ -189,7 +186,6 @@ namespace cobra {
         int header_count = 0;
         Style style = NONE;
     };
-
 
 }  // namespace cobra
 

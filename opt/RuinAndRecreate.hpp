@@ -12,12 +12,12 @@ class RuinAndRecreate {
 
 public:
     RuinAndRecreate(const cobra::Instance& instance_, std::mt19937& rand_engine_)
-        : instance(instance_),
-          rand_engine(rand_engine_),
-          boolean_dist(std::uniform_int_distribution(0, 1)),
-          customers_distribution(instance.get_customers_begin(), instance.get_customers_end() - 1),
-          rand_uniform(0, 3),
-          routes(instance.get_customers_num()) { }
+        : instance(instance_)
+        , rand_engine(rand_engine_)
+        , boolean_dist(std::uniform_int_distribution(0, 1))
+        , customers_distribution(instance.get_customers_begin(), instance.get_customers_end() - 1)
+        , rand_uniform(0, 3)
+        , routes(instance.get_customers_num()) { }
 
     int apply(cobra::Solution& solution, std::vector<int>& omega) {
 
@@ -108,9 +108,7 @@ public:
             std::shuffle(removed.begin(), removed.end(), rand_engine);
             break;
         case 1:
-            std::sort(removed.begin(), removed.end(), [this](int a, int b) {
-                return instance.get_demand(a) > instance.get_demand(b);
-            });
+            std::sort(removed.begin(), removed.end(), [this](int a, int b) { return instance.get_demand(a) > instance.get_demand(b); });
             break;
         case 2:
             std::sort(removed.begin(), removed.end(), [this](int a, int b) {

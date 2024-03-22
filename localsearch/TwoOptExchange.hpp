@@ -7,7 +7,8 @@ namespace cobra {
 
     class TwoOptExchange : public AbstractOperator {
     public:
-        TwoOptExchange(const Instance &instance_, MoveGenerators &moves_, double tolerance_) : AbstractOperator(instance_, moves_, tolerance_) { }
+        TwoOptExchange(const Instance &instance_, MoveGenerators &moves_, double tolerance_)
+            : AbstractOperator(instance_, moves_, tolerance_) { }
 
         static constexpr bool is_symmetric = true;
 
@@ -91,7 +92,7 @@ namespace cobra {
             return c;
         }
 
-        inline double compute_cost(const MoveGenerator& move, const struct Cache12 i, const struct Cache12 j) {
+        inline double compute_cost(const MoveGenerator &move, const struct Cache12 i, const struct Cache12 j) {
 
             const auto iSequenceAdd = this->moves.get_edge_cost(move) + this->instance.get_cost(j.next, i.next);
             return iSequenceAdd + i.seqrem + j.seqrem;

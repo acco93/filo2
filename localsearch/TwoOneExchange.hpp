@@ -7,7 +7,8 @@ namespace cobra {
 
     class TwoOneExchange : public AbstractOperator {
     public:
-        TwoOneExchange(const Instance &instance_, MoveGenerators &moves_, double tolerance_) : AbstractOperator(instance_, moves_, tolerance_) { }
+        TwoOneExchange(const Instance &instance_, MoveGenerators &moves_, double tolerance_)
+            : AbstractOperator(instance_, moves_, tolerance_) { }
 
         static constexpr bool is_symmetric = false;
 
@@ -158,7 +159,7 @@ namespace cobra {
             return c;
         }
 
-        inline std::pair<double, double> compute_cost_pair(const MoveGenerator& move, const struct Cache12 i, const struct Cache12 j) {
+        inline std::pair<double, double> compute_cost_pair(const MoveGenerator &move, const struct Cache12 i, const struct Cache12 j) {
 
             const auto c_iv_jv = this->moves.get_edge_cost(move);
 
@@ -241,7 +242,7 @@ namespace cobra {
         }
 
         template <typename C1, typename C2>
-        inline double compute_cost(const MoveGenerator& move, const C1 i, const C2 j) {
+        inline double compute_cost(const MoveGenerator &move, const C1 i, const C2 j) {
 
             const auto iSequenceAdd = +this->instance.get_cost(j.prevprev, i.prev) + this->moves.get_edge_cost(move);
             const auto jPrevAdd = +this->instance.get_cost(i.prevprev, j.prev) + this->instance.get_cost(j.prev, i.next);

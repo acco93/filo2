@@ -1,13 +1,14 @@
 #ifndef _FILO2_SOLUTIONALGORITHMS_HPP_
 #define _FILO2_SOLUTIONALGORITHMS_HPP_
 
+#include "../base/Timer.hpp"
 #include "Solution.hpp"
 
 
 namespace cobra {
 
     // Limited savings algorithm.
-    void clarke_and_wright(const Instance &instance, Solution &solution, const double lambda, int neighbors_num) {
+    inline void clarke_and_wright(const Instance &instance, Solution &solution, const double lambda, int neighbors_num) {
 
         solution.reset();
 
@@ -49,9 +50,7 @@ namespace cobra {
         }
 
 
-        std::sort(savings.begin(), savings.end(), [](const Saving &a, const Saving &b) {
-            return a.value > b.value;
-        });
+        std::sort(savings.begin(), savings.end(), [](const Saving &a, const Saving &b) { return a.value > b.value; });
 
 #ifdef VERBOSE
         Timer timer;

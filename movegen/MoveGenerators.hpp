@@ -98,14 +98,15 @@ namespace cobra {
     };
 
     // Heap data structure specialized to contain move generators.
-    class MoveGeneratorsHeap : private NonCopyable<MoveGeneratorsHeap>,
-                               private BinaryHeap<MoveGenerator*, MGCompare, MGGetIdx, MGSetIdx, MGUpdate, -1> {
+    class MoveGeneratorsHeap
+        : private NonCopyable<MoveGeneratorsHeap>
+        , private BinaryHeap<MoveGenerator*, MGCompare, MGGetIdx, MGSetIdx, MGUpdate, -1> {
 
         typedef BinaryHeap<MoveGenerator*, MGCompare, MGGetIdx, MGSetIdx, MGUpdate> BHeap;
 
     public:
         MoveGeneratorsHeap() = default;
-        MoveGeneratorsHeap(const MoveGeneratorsHeap& other) = default;
+        MoveGeneratorsHeap(const MoveGeneratorsHeap& other) = delete;
 
 
         void reset() {
@@ -541,8 +542,8 @@ namespace cobra {
                                              }
 
                                              return endpoints;
-                                         }),
-              max_neighbors_num(std::min(k, inst.get_vertices_num() - 1))  // Skip self-moves.
+                                         })
+            , max_neighbors_num(std::min(k, inst.get_vertices_num() - 1))  // Skip self-moves.
         {
             curr_neighbors_num.resize(inst.get_vertices_num(), 0);
         }

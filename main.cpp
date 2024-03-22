@@ -18,12 +18,7 @@
 #endif
 
 auto get_basename(const std::string& pathname) -> std::string {
-    return {std::find_if(pathname.rbegin(), pathname.rend(),
-                         [](char c) {
-                             return c == '/';
-                         })
-                .base(),
-            pathname.end()};
+    return {std::find_if(pathname.rbegin(), pathname.rend(), [](char c) { return c == '/'; }).base(), pathname.end()};
 }
 
 

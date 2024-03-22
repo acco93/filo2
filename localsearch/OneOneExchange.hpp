@@ -8,7 +8,8 @@ namespace cobra {
     class OneOneExchange : public AbstractOperator {
 
     public:
-        OneOneExchange(const Instance& instance_, MoveGenerators& moves_, double tolerance_) : AbstractOperator(instance_, moves_, tolerance_) { }
+        OneOneExchange(const Instance& instance_, MoveGenerators& moves_, double tolerance_)
+            : AbstractOperator(instance_, moves_, tolerance_) { }
 
         static constexpr bool is_symmetric = false;
 

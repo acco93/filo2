@@ -60,9 +60,7 @@ namespace cobra {
         } else {
             int median = (begin + end) / 2;
             std::nth_element(nodes.begin() + begin, nodes.begin() + median, nodes.begin() + end,
-                             [dimension](const Point& a, const Point& b) {
-                                 return a.coords[dimension] < b.coords[dimension];
-                             });
+                             [dimension](const Point& a, const Point& b) { return a.coords[dimension] < b.coords[dimension]; });
             node->point_index = median;
 
             const int cutval = nodes[median].coords[dimension];
@@ -125,7 +123,6 @@ namespace cobra {
         return true;
     }
 
-
     bool KDTree::BallWithinBounds(const std::array<double, 2>& point, double dist, KDTree::Node* node) const {
 
         for (int i = 0; i < static_cast<int>(point.size()); ++i) {
@@ -137,7 +134,6 @@ namespace cobra {
 
         return true;
     }
-
 
     bool KDTree::SearchNeighbors(KDTree::Node* node, KDTree::KDTreeHeap& heap, const std::array<double, 2>& point, int k) const {
 
