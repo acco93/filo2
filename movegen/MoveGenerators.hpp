@@ -585,10 +585,12 @@ namespace cobra {
                 indices.shrink_to_fit();
                 std::sort(indices.begin(), indices.end(), [&moves, this](auto a, auto b) {
                     const auto& a_move = moves.get(a);
-                    const auto a_cost = this->instance.get_cost(a_move.get_first_vertex(), a_move.get_second_vertex());
+                    const double a_cost = moves.get_edge_cost(a_move);
+                    assert(std::fabs(a_cost) - this->instance.get_cost(a_move.get_first_vertex(), a_move.get_second_vertex()) < 0.0001);
 
                     const auto& b_move = moves.get(b);
-                    const auto b_cost = this->instance.get_cost(b_move.get_first_vertex(), b_move.get_second_vertex());
+                    const double b_cost = moves.get_edge_cost(b_move);
+                    assert(std::fabs(b_cost) - this->instance.get_cost(b_move.get_first_vertex(), b_move.get_second_vertex()) < 0.0001);
 
                     return a_cost < b_cost;
                 });
