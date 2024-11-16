@@ -573,7 +573,7 @@ namespace cobra {
         }
         void on_build_completed(MoveGenerators& moves) override {
 
-            for (auto i = instance.get_customers_begin(); i < instance.get_customers_end(); i++) {
+            for (auto i = instance.get_vertices_begin(); i < instance.get_vertices_end(); i++) {
 
                 auto& indices = all_move_generator_indices_involving[i];
 
