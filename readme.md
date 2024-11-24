@@ -10,7 +10,7 @@ Changes and computational results are described in the [draft](https://arxiv.org
 The code has received some updates related to implementation details 
 - Mar 11, 2024 - [Commit 42276b7](https://github.com/acco93/filo2/commit/42276b76ded03a2cabd82206bf56b44fde299605): use faster rounding procedure
 - Mar 13, 2024 - [Commit 2127972](https://github.com/acco93/filo2/commit/2127972f5d1e4a6d7abd8a41501908ef11a51b8a): use a more efficient set implementation in ruin&recreate and local search procedures
-- Nov 24, 2024 - [Commit 0000000](): simplify move generator class. The algorithm ìs ≈27% faster (on short runs) and uses ≈7% less memory
+- Nov 24, 2024 - [Commit 292c3c1](https://github.com/acco93/filo2/commit/292c3c13b497f98ad9cb581e17ba3baa9cdc7277): simplify move generator class. The algorithm ìs ≈27% faster (on short runs) and uses ≈7% less memory
 
 ### Get the code
 ```
