@@ -7,7 +7,10 @@ On the [X](instances/X/) and [B](instances/B/) datasets FILO2 behaves pretty muc
 Changes and computational results are described in the [draft](https://arxiv.org/abs/2306.14205) and in the [paper](https://www.sciencedirect.com/science/article/pii/S0305054824000340). This repository contains [raw results](results/) and the algorithm source code.
 
 ### Updates
-The code has received two minor updates related to implementation details (see [1](https://github.com/acco93/filo2/commit/42276b76ded03a2cabd82206bf56b44fde299605) and [2](https://github.com/acco93/filo2/commit/2127972f5d1e4a6d7abd8a41501908ef11a51b8a)) that slighly improve the overall computing time of the algorithm compared to the results published in the paper.
+The code has received some updates related to implementation details 
+- Mar 11, 2024 - [Commit 42276b7](https://github.com/acco93/filo2/commit/42276b76ded03a2cabd82206bf56b44fde299605): use faster rounding procedure
+- Mar 13, 2024 - [Commit 2127972](https://github.com/acco93/filo2/commit/2127972f5d1e4a6d7abd8a41501908ef11a51b8a): use a more efficient set implementation in ruin&recreate and local search procedures
+- Nov 24, 2024 - [Commit 0000000](): simplify move generator class. The algorithm ìs ≈27% faster (on short runs) and uses ≈7% less memory
 
 ### Get the code
 ```

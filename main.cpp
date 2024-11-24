@@ -73,12 +73,7 @@ int main(int argc, char* argv[]) {
     timer.reset();
 #endif
 
-    auto knn_view = cobra::KNeighborsMoveGeneratorsView(instance, k);
-
-    auto views = std::vector<cobra::AbstractMoveGeneratorsView*>();
-    views.push_back(&knn_view);
-
-    auto move_generators = cobra::MoveGenerators(instance, views);
+    auto move_generators = cobra::MoveGenerators(instance, k);
 
 #ifdef VERBOSE
     std::cout << "Done in " << timer.elapsed_time<std::chrono::seconds>() << " seconds.\n";
@@ -88,12 +83,8 @@ int main(int argc, char* argv[]) {
     std::cout << "Using at most " << move_generators.size() << " move-generators out of " << tot_arcs << " total arcs ";
     std::cout << std::fixed;
     std::cout << std::setprecision(5);
-    std::cout << "(approx. " << move_gen_perc << "%):\n";
-    std::cout << std::setprecision(10);
+    std::cout << "(approx. " << move_gen_perc << "%)\n\n";
     std::cout << std::defaultfloat;
-    std::cout << std::setw(10);
-    std::cout << knn_view.size() << " k=" << k << " nearest-neighbors arcs\n";
-    std::cout << "\n";
 #endif
 
 
