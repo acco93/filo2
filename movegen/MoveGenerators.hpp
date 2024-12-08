@@ -1,6 +1,7 @@
 #ifndef _FILO2_MOVEGENERATORS_HPP_
 #define _FILO2_MOVEGENERATORS_HPP_
 
+#include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <vector>
@@ -418,7 +419,6 @@ namespace cobra {
         std::vector<int> current_num_neighbors;
 
         // For every move generators, these vectors track whether they are active because of node i (first), node j (second), or both.
-        // TODO: reduce by half if we only use the base index?
         std::vector<bool> move_active_in_1st;
         std::vector<bool> move_active_in_2nd;
 

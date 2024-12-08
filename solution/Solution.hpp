@@ -2,11 +2,7 @@
 #define _FILO2_SOLUTION_HPP_
 
 #include <fstream>
-#include <list>
-#include <random>
-#include <set>
-#include <stack>
-#include <unordered_set>
+#include <iostream>
 #include <vector>
 
 #include "../base/FixedSizeValueStack.hpp"

@@ -2,10 +2,8 @@
 #define _FILO2_LRUCACHE_HPP_
 
 #include <cassert>
-#include <iostream>
 #include <vector>
 
-#include "NonCopyable.hpp"
 
 namespace cobra {
 

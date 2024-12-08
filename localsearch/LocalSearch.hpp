@@ -1,11 +1,10 @@
 #ifndef _FILO2_LOCALSEARCH_HPP_
 #define _FILO2_LOCALSEARCH_HPP_
 
+#include <algorithm>
 #include <cfloat>
-#include <map>
-#include <set>
+#include <random>
 
-#include "../base/SparseIntSet.hpp"
 #include "../instance/Instance.hpp"
 #include "../movegen/MoveGenerators.hpp"
 #include "../solution/Solution.hpp"

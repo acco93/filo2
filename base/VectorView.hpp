@@ -1,11 +1,9 @@
 #ifndef _FILO2_VECTORVIEW_HPP_
 #define _FILO2_VECTORVIEW_HPP_
 
-#include <algorithm>
-#include <vector>
 
-#include "functor.hpp"
 
+#include <iterator>
 namespace cobra {
 
     // Apply a function to a random access range online, without modifying the underlying values.

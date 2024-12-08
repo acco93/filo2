@@ -1,7 +1,6 @@
 #ifndef _FILO2_ABSTRACTOPERATOR_HPP_
 #define _FILO2_ABSTRACTOPERATOR_HPP_
 
-#include "../base/Welford.hpp"
 #include "../instance/Instance.hpp"
 #include "../movegen/MoveGenerators.hpp"
 #include "../solution/Solution.hpp"

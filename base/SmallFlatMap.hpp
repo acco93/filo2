@@ -1,7 +1,6 @@
 #ifndef _FILO2_SMALLFLATMAP_HPP_
 #define _FILO2_SMALLFLATMAP_HPP_
 
-#include <algorithm>
 
 #include "functor.hpp"
 

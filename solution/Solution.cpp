@@ -1,5 +1,9 @@
 #include "Solution.hpp"
 
+#include <algorithm>
+#include <iostream>
+#include <set>
+
 namespace cobra {
 
     bool Solution::is_feasible(const bool error_on_load_infeasible, const bool verbose) const {

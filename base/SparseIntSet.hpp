@@ -1,7 +1,6 @@
 #ifndef _FILO2_SPARSEINTSET_HPP_
 #define _FILO2_SPARSEINTSET_HPP_
 
-#include <bitset>
 #include <cmath>
 #include <vector>
 

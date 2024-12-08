@@ -3,9 +3,7 @@
 
 #include <filesystem>
 #include <iostream>
-#include <optional>
 #include <string>
-#include <utility>
 
 // Default parameters.
 #define DEFAULT_OUTPATH ("./")

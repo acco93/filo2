@@ -4,7 +4,6 @@
 #include <random>
 
 #include "../base/SparseIntSet.hpp"
-#include "../base/Welford.hpp"
 #include "../instance/Instance.hpp"
 #include "../solution/Solution.hpp"
 

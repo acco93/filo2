@@ -3,6 +3,7 @@
 #include "Parameters.hpp"
 #include "base/PrettyPrinter.hpp"
 #include "base/Timer.hpp"
+#include "base/Welford.hpp"
 #include "instance/Instance.hpp"
 #include "localsearch/LocalSearch.hpp"
 #include "movegen/MoveGenerators.hpp"
