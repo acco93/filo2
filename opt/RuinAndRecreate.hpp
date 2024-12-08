@@ -1,6 +1,7 @@
 #ifndef _FILO2_RUINANDRECREATE_HPP_
 #define _FILO2_RUINANDRECREATE_HPP_
 
+#include <algorithm>
 #include <random>
 
 #include "../base/SparseIntSet.hpp"

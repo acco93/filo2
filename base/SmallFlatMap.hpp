@@ -2,6 +2,8 @@
 #define _FILO2_SMALLFLATMAP_HPP_
 
 
+#include <cstddef>
+#include <utility>
 #include "functor.hpp"
 
 namespace cobra {

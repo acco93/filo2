@@ -2,6 +2,7 @@
 #define _FILO2_SMALLFLATSET_HPP_
 
 
+#include <cstddef>
 #include "functor.hpp"
 
 namespace cobra {
