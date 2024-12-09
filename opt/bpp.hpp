@@ -12,31 +12,22 @@ namespace bpp {
     // Simple greedy solution of the bin packing problem associated with the CVRP instance.
     inline int greedy_first_fit_decreasing(const cobra::Instance& instance) {
 
-        auto customers = std::vector<int>();
-        customers.reserve(instance.get_customers_num());
-
+        std::vector<int> customers(instance.get_customers_num());
         for (auto i = instance.get_customers_begin(); i < instance.get_customers_end(); i++) {
-            customers.emplace_back(i);
+            customers[i - 1] = i;
         }
 
         std::sort(customers.begin(), customers.end(),
                   [&instance](auto i, auto j) { return instance.get_demand(i) > instance.get_demand(j); });
 
-        struct bin {
-            int load{};
-            std::vector<int> customers{};
-        };
+        std::vector<int> bins(instance.get_customers_num(), 0);
 
-        auto bins = std::vector<bin>(instance.get_customers_num());
-
-        auto used_bins = 0ul;
+        int used_bins = 0;
         for (auto i : customers) {
-            const auto i_demand = instance.get_demand(i);
-            for (auto p = 0ul; p < bins.size(); p++) {
-                auto& bin = bins[p];
-                if (bin.load + i_demand <= instance.get_vehicle_capacity()) {
-                    bin.load += i_demand;
-                    bin.customers.push_back(i);
+            const int demand = instance.get_demand(i);
+            for (int p = 0; p < static_cast<int>(bins.size()); p++) {
+                if (bins[p] + demand <= instance.get_vehicle_capacity()) {
+                    bins[p] += demand;
                     if (p + 1 > used_bins) {
                         used_bins = p + 1;
                     }
