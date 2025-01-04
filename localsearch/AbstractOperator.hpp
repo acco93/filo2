@@ -174,7 +174,7 @@ namespace cobra {
                     }
                 }
 
-                // Postpone depot handling. This way we have better changes to compact move generators and reuse cached data.
+                // Postpone depot handling. This way we have better chances to compact move generators and reuse cached data.
                 if (i == T::instance.get_depot()) {
                     depot = true;
                     continue;
@@ -279,7 +279,7 @@ namespace cobra {
                     }
                 }
 
-                // Postpone depot handling. This way we have better changes to compact move generators and reuse cached data.
+                // Postpone depot handling. This way we have better chances to compact move generators and reuse cached data.
                 if (i == T::instance.get_depot()) {
                     depot = true;
                     continue;
@@ -422,7 +422,7 @@ namespace cobra {
                     }
                 }
 
-                // Postpone depot handling. This way we have better changes to compact move generators and reuse cached data.
+                // Postpone depot handling. This way we have better chances to compact move generators and reuse cached data.
                 if (i == T::instance.get_depot()) {
                     depot = true;
                     continue;
@@ -531,7 +531,7 @@ namespace cobra {
                     }
                 }
 
-                // Postpone depot handling. This way we have better changes to compact move generators and reuse cached data.
+                // Postpone depot handling. This way we have better chances to compact move generators and reuse cached data.
                 if (i == T::instance.get_depot()) {
                     depot = true;
                     continue;
