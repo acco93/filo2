@@ -2,9 +2,9 @@
 #define _FILO2_ROUTEMIN_HPP_
 
 #include <chrono>
-#include <unordered_set>
 
 #include "../base/PrettyPrinter.hpp"
+#include "../base/SparseIntSet.hpp"
 #include "../instance/Instance.hpp"
 #include "../localsearch/LocalSearch.hpp"
 #include "../movegen/MoveGenerators.hpp"
@@ -53,6 +53,8 @@ inline cobra::Solution routemin(const cobra::Instance &instance, const cobra::So
 
     auto still_removed = std::vector<int>();
     still_removed.reserve(instance.get_customers_num());
+
+    cobra::SparseIntSet neighbor_routes(instance.get_customers_num());
 
     auto solution = best_solution;
 
@@ -156,7 +158,7 @@ inline cobra::Solution routemin(const cobra::Instance &instance, const cobra::So
             // (That's not necessarily the smartest choice, especially for long routes it may not be worth considering insertion far from
             // the removed customer.)
             const auto &neighbors = instance.get_neighbors_of(i);
-            std::unordered_set<int> neighbor_routes;
+            neighbor_routes.clear();
             for (int n = 1; n < static_cast<int>(neighbors.size()); n++) {
                 int where = neighbors[n];
                 if (where == instance.get_depot() || !solution.is_customer_in_solution(where)) continue;
@@ -166,7 +168,7 @@ inline cobra::Solution routemin(const cobra::Instance &instance, const cobra::So
             // Accessing the cost matrix is super expensive, cache whenever possible!
             const auto c_i_depot = instance.get_cost(i, instance.get_depot());
 
-            for (auto route : neighbor_routes) {
+            for (auto route : neighbor_routes.get_elements()) {
 
                 if (solution.get_route_load(route) + instance.get_demand(i) > instance.get_vehicle_capacity()) {
                     continue;
