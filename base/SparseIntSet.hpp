@@ -1,6 +1,7 @@
 #ifndef _FILO2_SPARSEINTSET_HPP_
 #define _FILO2_SPARSEINTSET_HPP_
 
+#include <cassert>
 #include <cmath>
 #include <vector>
 
@@ -30,16 +31,19 @@ namespace cobra {
         }
 
         inline void insert_without_checking_existance(int value) {
+            assert(value < static_cast<int>(flags.size()));
             flags[value] = true;
             elements.push_back(value);
         }
 
         inline bool contains(int value) const {
+            assert(value < static_cast<int>(flags.size()));
             return flags[value];
         }
 
         void clear() {
             for (auto value : elements) {
+                assert(value < static_cast<int>(flags.size()));
                 flags[value] = false;
             }
             elements.clear();

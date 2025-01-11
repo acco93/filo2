@@ -54,7 +54,7 @@ inline cobra::Solution routemin(const cobra::Instance &instance, const cobra::So
     auto still_removed = std::vector<int>();
     still_removed.reserve(instance.get_customers_num());
 
-    cobra::SparseIntSet neighbor_routes(instance.get_customers_num());
+    cobra::SparseIntSet neighbor_routes(instance.get_vertices_num());
 
     auto solution = best_solution;
 

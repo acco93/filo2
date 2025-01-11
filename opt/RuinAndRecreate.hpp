@@ -17,7 +17,7 @@ public:
         , boolean_dist(std::uniform_int_distribution(0, 1))
         , customers_distribution(instance.get_customers_begin(), instance.get_customers_end() - 1)
         , rand_uniform(0, 3)
-        , routes(instance.get_customers_num()) { }
+        , routes(instance.get_vertices_num()) { }
 
     int apply(cobra::Solution& solution, std::vector<int>& omega) {
 
