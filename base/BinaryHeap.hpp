@@ -51,6 +51,11 @@ namespace cobra {
             SetIdx()(heap[0], unheaped);
             auto elem = std::move(heap[0]);
 
+            if (heap.size() == 1) {
+                heap.pop_back();
+                return elem;
+            }
+
             SetIdx()(heap.back(), 0);
             heap[0] = std::move(heap.back());
             heap.pop_back();
