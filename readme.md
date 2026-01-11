@@ -33,7 +33,7 @@ make -j
 
 - ENABLE_VERBOSE: prints info while processing
 - ENABLE_GUI: shows a graphical representation (slows down thing a little)
-
+- ENABLE_TIMELIMIT: uses a time-limit termination criterion instead of an iteration-based one. In particular, the `--coreopt-iterations` flag is replaced by `--optimization-seconds`, which allows you to specify the total allowed computing time (in seconds) for the solver. The solver runs the core optimization procedure for the specified duration, minus the time taken by the setup and route minimization procedures. Note that the solver will not stop before reaching the core optimization procedure even if the time limit has already expired.
 
 ### The I dataset ... in pictures
 - [Valle d'Aosta](https://en.wikipedia.org/wiki/Aosta_Valley) (20k)

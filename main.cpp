@@ -137,8 +137,12 @@ int main(int argc, char* argv[]) {
     local_search.append(&rvnd0);
     local_search.append(&rvnd1);
 
-
+#ifdef TIMELIMIT
+    const int optimization_seconds = params.get_optimization_seconds();
+    const int optimization_milliseconds = 1000 * optimization_seconds;
+#else
     const auto coreopt_iterations = params.get_coreopt_iterations();
+#endif
 
     auto neighbor = best_solution;
 
@@ -186,7 +190,12 @@ int main(int argc, char* argv[]) {
     const auto sa_initial_temperature = welf.get_mean() * params.get_sa_initial_factor();
     const auto sa_final_temperature = sa_initial_temperature * params.get_sa_final_factor();
 
+#ifdef TIMELIMIT
+    const int coreopt_seconds = optimization_seconds - global_timer.elapsed_time<std::chrono::seconds>();
+    auto sa = cobra::TimeBasedSimulatedAnnealing(sa_initial_temperature, sa_final_temperature, rand_engine, coreopt_seconds * 1000);
+#else
     auto sa = cobra::SimulatedAnnealing(sa_initial_temperature, sa_final_temperature, rand_engine, coreopt_iterations);
+#endif
 
 #ifdef VERBOSE
     std::cout << "Simulated annealing temperature goes from " << sa_initial_temperature << " to " << sa_final_temperature << ".\n\n";
@@ -194,7 +203,11 @@ int main(int argc, char* argv[]) {
 
 
 #ifdef VERBOSE
+    #ifdef TIMELIMIT
+    std::cout << "Running COREOPT for " << std::max(0, coreopt_seconds) << " seconds.\n";
+    #else
     std::cout << "Running COREOPT for " << coreopt_iterations << " iterations.\n";
+    #endif
 
     auto welford_rac_before_shaking = cobra::Welford();
     auto welford_rac_after_shaking = cobra::Welford();
@@ -229,7 +242,11 @@ int main(int argc, char* argv[]) {
     // Cost of the working solution, from which neighbor is obtained after shaking and local search.
     double reference_solution_cost = neighbor.get_cost();
 
+#ifdef TIMELIMIT
+    for (auto iter = 0; static_cast<int>(global_timer.elapsed_time<std::chrono::milliseconds>()) <= optimization_milliseconds; iter++) {
+#else
     for (auto iter = 0; iter < coreopt_iterations; iter++) {
+#endif
 
         neighbor.apply_undo_list1(neighbor);
         neighbor.clear_do_list1();
@@ -283,9 +300,20 @@ int main(int argc, char* argv[]) {
 
         average_number_of_vertices_accessed.update(static_cast<double>(neighbor.get_svc_size()));
 
+#ifdef TIMELIMIT
+        const int avg_iters_sec = (iter + 1.0) / (coreopt_timer.elapsed_time<std::chrono::seconds>() + 0.01);
+        const int remaining_sec = coreopt_seconds - coreopt_timer.elapsed_time<std::chrono::seconds>();
+        const int estimated_remaining_iters = avg_iters_sec * remaining_sec;
+        const int estimated_total_iters = 1 + iter + estimated_remaining_iters;
+
+        const int max_non_improving_iterations = static_cast<int>(std::ceil(
+            delta * static_cast<double>(estimated_total_iters) * static_cast<double>(average_number_of_vertices_accessed.get_mean()) /
+            static_cast<double>(instance.get_vertices_num())));
+#else
         auto max_non_improving_iterations = static_cast<int>(std::ceil(delta * static_cast<double>(coreopt_iterations) *
                                                                        static_cast<double>(average_number_of_vertices_accessed.get_mean()) /
                                                                        static_cast<double>(instance.get_vertices_num())));
+#endif
 
 #ifdef GUI
         if (iter % 1000 == 0) {
@@ -372,7 +400,11 @@ int main(int argc, char* argv[]) {
             }
         }
 
+#ifdef TIMELIMIT
+        if (sa.accept(reference_solution_cost, neighbor, coreopt_timer.elapsed_time<std::chrono::milliseconds>())) {
+#else
         if (sa.accept(reference_solution_cost, neighbor)) {
+#endif
 
             if (!improved_best_solution) {
                 neighbor.append_do_list1_to_do_list2();
@@ -399,12 +431,6 @@ int main(int argc, char* argv[]) {
         if (timer.elapsed_time<std::chrono::seconds>() > 1) {
             timer.reset();
 
-            const auto progress = 100.0 * (iter + 1.0) / coreopt_iterations;
-            const auto elapsed_seconds = coreopt_timer.elapsed_time<std::chrono::seconds>();
-            const auto iter_per_second = static_cast<double>(iter + 1) / (static_cast<double>(elapsed_seconds) + 0.01);
-            const auto remaining_iter = coreopt_iterations - iter;
-            const auto estimated_rem_time = static_cast<double>(remaining_iter) / iter_per_second;
-
             auto gamma_mean = 0.0;
             for (auto i = instance.get_vertices_begin(); i < instance.get_vertices_end(); i++) {
                 gamma_mean += gamma[i];
@@ -417,9 +443,23 @@ int main(int argc, char* argv[]) {
             }
             omega_mean /= static_cast<double>(instance.get_customers_num());
 
+    #ifdef TIMELIMIT
+            const int elapsed_time_ms = coreopt_timer.elapsed_time<std::chrono::milliseconds>();
+            const auto progress = 100.0f * (elapsed_time_ms / 1000.0) / coreopt_seconds;
+
+            printer.print(progress, iter + 1, best_solution.get_cost(), best_solution.get_routes_num(), avg_iters_sec, remaining_sec,
+                          welford_rr.get_mean(), welford_ls.get_mean(), gamma_mean, omega_mean, sa.get_temperature(elapsed_time_ms));
+    #else
+
+            const auto progress = 100.0 * (iter + 1.0) / coreopt_iterations;
+            const auto elapsed_seconds = coreopt_timer.elapsed_time<std::chrono::seconds>();
+            const auto iter_per_second = static_cast<double>(iter + 1) / (static_cast<double>(elapsed_seconds) + 0.01);
+            const auto remaining_iter = coreopt_iterations - iter;
+            const auto estimated_rem_time = static_cast<double>(remaining_iter) / iter_per_second;
 
             printer.print(progress, iter + 1, best_solution.get_cost(), best_solution.get_routes_num(), iter_per_second, estimated_rem_time,
                           welford_rr.get_mean(), welford_ls.get_mean(), gamma_mean, omega_mean, sa.get_temperature());
+    #endif
         }
 #endif
     }

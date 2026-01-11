@@ -13,6 +13,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 option(ENABLE_VERBOSE "Enable verbose output" ON)
 option(ENABLE_GUI "Enable graphical interface" OFF)
+option(ENABLE_TIMELIMIT "Enable time limiet termination" OFF)
 
 message("-- Build options")
 
@@ -30,6 +31,13 @@ if(ENABLE_GUI)
     set(SOURCE ${SOURCE} Renderer.hpp)
 else()
     message("--- Graphical interface DISABLED")
+endif()
+
+if(ENABLE_TIMELIMIT)
+    message("--- Time limit termination ENABLED")
+    add_definitions(-DTIMELIMIT)
+else()
+    message("--- Time limit termination DISABLED")
 endif()
 
 add_executable(filo2

@@ -12,7 +12,11 @@
 #define DEFAULT_NEIGHBORS_NUM (1500)
 #define DEFAULT_CW_NEIGHBORS (100)
 #define DEFAULT_ROUTEMIN_ITERATIONS (1000)
-#define DEFAULT_COREOPT_ITERATIONS (100000)
+#ifdef TIMELIMIT
+    #define DEFAULT_OPTIMIZATION_SECONDS (100)
+#else
+    #define DEFAULT_COREOPT_ITERATIONS (100000)
+#endif
 #define DEFAULT_SPARSIFICATION_RULE1_NEIGHBORS (25)
 #define DEFAULT_SPARSIFICATION_FACTOR (0.25)
 #define DEFAULT_SPARSIFICATION_MULTIPLIER (0.50)
@@ -30,7 +34,11 @@
 #define TOKEN_SPARSIFICATION_RULE1_NEIGHBORS ("--granular-neighbors")
 #define TOKEN_SOLUTION_CACHE_HISTORY ("--cache")
 #define TOKEN_ROUTEMIN_ITERATIONS ("--routemin-iterations")
-#define TOKEN_COREOPT_ITERATIONS ("--coreopt-iterations")
+#ifdef TIMELIMIT
+    #define TOKEN_OPTIMIZATION_SECONDS ("--optimization-seconds")
+#else
+    #define TOKEN_COREOPT_ITERATIONS ("--coreopt-iterations")
+#endif
 #define TOKEN_SPARSIFICATION_FACTOR ("--granular-gamma-base")
 #define TOKEN_SPARSIFICATION_MULTIPLIER ("--granular-delta")
 #define TOKEN_SHAKING_LB_FACTOR ("--shaking-lower-bound")
@@ -79,9 +87,15 @@ public:
     inline int get_routemin_iterations() const {
         return routemin_iterations;
     }
+#ifdef TIMELIMIT
+    inline int get_optimization_seconds() const {
+        return optimization_seconds;
+    }
+#else
     inline int get_coreopt_iterations() const {
         return coreopt_iterations;
     }
+#endif
     inline int get_sparsification_rule_neighbors() const {
         return sparsification_rule_neighbors;
     }
@@ -135,8 +149,13 @@ public:
             solution_cache_history = std::stoi(value);
         } else if (key == TOKEN_ROUTEMIN_ITERATIONS) {
             routemin_iterations = std::stoi(value);
+#ifdef TIMELIMIT
+        } else if (key == TOKEN_OPTIMIZATION_SECONDS) {
+            optimization_seconds = std::stoi(value);
+#else
         } else if (key == TOKEN_COREOPT_ITERATIONS) {
             coreopt_iterations = std::stoi(value);
+#endif
         } else if (key == TOKEN_SPARSIFICATION_FACTOR) {
             gamma_base = std::stof(value);
         } else if (key == TOKEN_SPARSIFICATION_MULTIPLIER) {
@@ -167,7 +186,11 @@ private:
     double cw_lambda = DEFAULT_CW_LAMBDA;
     int cw_neighbors = DEFAULT_CW_NEIGHBORS;
     int routemin_iterations = DEFAULT_ROUTEMIN_ITERATIONS;
+#ifdef TIMELIMIT
+    int optimization_seconds = DEFAULT_OPTIMIZATION_SECONDS;
+#else
     int coreopt_iterations = DEFAULT_COREOPT_ITERATIONS;
+#endif
     int sparsification_rule_neighbors = DEFAULT_SPARSIFICATION_RULE1_NEIGHBORS;
     double gamma_base = DEFAULT_SPARSIFICATION_FACTOR;
     double delta = DEFAULT_SPARSIFICATION_MULTIPLIER;
