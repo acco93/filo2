@@ -1,3 +1,7 @@
+Check out [FILO2<sup>x</sup>](https://github.com/acco93/filo2x), a parallel version of FILO2.
+
+------------------------------------------------------------------------------------
+
 # FILO2
 ![Italia](imgs/Italia.coords.png)
 FILO2 is an evolution of [FILO](https://github.com/acco93/filo) able to tackle much larger CVRP instances with a very ordinary computing system. 
